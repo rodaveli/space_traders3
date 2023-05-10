@@ -1,3 +1,2 @@
-firebase-admin
-google-cloud-storage
+google-cloud
 google-cloud-firestore
