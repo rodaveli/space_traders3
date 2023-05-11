@@ -113,8 +113,8 @@ with tab3:
         st.write(ship_inventory)
 
 with tab5:
-    x = st.text_input("current x_coord:")
-    y = st.text_input("current y_coord:")
+    x = x_coord
+    y = y_coord
     all_systems = get_systems()
     all_systems_all = []
     for n in all_systems:
