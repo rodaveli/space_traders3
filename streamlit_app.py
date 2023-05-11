@@ -4,10 +4,13 @@ from info import *
 from trade import *
 from nav import *
 from ship import *
+from system_info import *
 import pandas as pd
 from google.cloud import firestore
 from time import sleep
 from datetime import datetime
+import matplotlib.pyplot as plt
+from collections import defaultdict
 
 st.title('Rods Space Trader App')
 
@@ -54,13 +57,15 @@ with st.sidebar:
     st.write("fuel_current:", ship_info[3])
     st.write("fuel_capacity:", ship_info[4])
     ship_symbol = st.write("ship_symbol:", ship_info[5])
+    x_coord = st.write("x_coord:", ship_info[6])
+    y_coord = st.write("y_coord:", ship_info[7])
     if st.button("Dock Ship"):
         dock_ship(ship_symbol=ship_symbol)
     if st.button("Go to Orbit"):
         orbit_ship(ship_symbol=ship_symbol)
 
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Trade", "Nav", "Ship", "Contracts", "Mine for Resources"])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Trade", "Nav", "Ship", "Contracts", "System Explore", "Mine for Resources"])
 
 with tab1:
     waypnt = st.text_input("Enter Waypoint Symbol:")
@@ -108,6 +113,59 @@ with tab3:
         st.write(ship_inventory)
 
 with tab5:
+    x = st.text_input("current x_coord:")
+    y = st.text_input("current y_coord:")
+    all_systems = get_systems()
+    all_systems_all = []
+    for n in all_systems:
+        #print(n['symbol'])
+        all_systems_all.append(n['symbol'])
+        #print(n['type'])
+        #print(n['waypoints'])
+        
+    #print(all_systems_all)
+    #pprint(get_waypoints(all_systems_all[0]))
+    all_waypoints = get_waypoints(all_systems_all[0])
+    #print("---------")
+    #pprint(all_waypoints)
+    #print("---------")
+
+    #for n in range 
+    # waypoint_symbols append list from all_waypoint[n]['symb']
+
+    waypoint_symbols = {}
+    waypoints_coords = {}
+    for i, n in enumerate(all_waypoints):
+        waypoint_symbols[n['symbol']] = n['type']
+        waypoints_coords[n['symbol']] = [n['x'], n['y']]  
+    df = pd.DataFrame.from_dict(waypoint_symbols, orient='index')
+    df.columns = ['waypoint & type']
+    st.dataframe(df)
+    coord_dict = defaultdict(list)
+
+    for key, value in waypoints_coords.items():
+        coord_dict[tuple(value)].append(key + ' (' + waypoint_symbols[key] + ')')
+
+    fig = plt.figure(figsize=(10, 8))
+
+    for value, keys in coord_dict.items():
+        plt.plot(value[0], value[1], 'o')
+        plt.text(value[0], value[1], '\n'.join(keys), fontsize=8)
+
+    plt.title('CURRENT SYSTEM MAP')
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.grid(True)
+    center = [int(x), int(y)]
+    plt.plot(center[0], center[1], marker='x', markersize=10, color='red')
+    plt.text(center[0], center[1], 'YOU ARE HERE', fontsize=12, ha='right')
+    x_range = max(abs(v[0] - center[0]) for v in waypoints_coords.values())
+    y_range = max(abs(v[1] - center[1]) for v in waypoints_coords.values())
+
+    plt.xlim(center[0] - x_range, center[0] + x_range)
+    plt.ylim(center[1] - y_range, center[1] + y_range)
+    st.pyplot(fig)
+with tab6:
     myship = st.text_input("Enter Ship Symbol:", placeholder='ROD56-1')
     if st.button("Mine"):
         cooldown, cargo_capacity, cargo_units_current = extract_resources(myship)
