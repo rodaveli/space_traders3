@@ -31,8 +31,8 @@ def get_ship_location_info(n=0):
     y = get_my_ships(n)['nav']['route']['destination']['y']
     return status, system_symbol, waypoint_symbol, fuel_current, fuel_capacity, ship_symbol, x, y
 
-ship_info = get_my_ships(0)
-pprint(ship_info['nav']['route']['destination']['x'])
+#ship_info = get_my_ships(0)
+#pprint(ship_info['nav']['route']['destination']['x'])
 
 def get_ship_cargo_numbers(n):
     conn = http.client.HTTPSConnection("api.spacetraders.io")

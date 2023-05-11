@@ -4,6 +4,7 @@ from trade import *
 from time import sleep
 
 def get_systems():
+    sleep(1)
     conn = http.client.HTTPSConnection("api.spacetraders.io")
 
     headers = {
@@ -17,6 +18,7 @@ def get_systems():
     data = res.read()
     mystr = data.decode("utf-8")
     mydict = eval(mystr)
+    sleep(2)
     return mydict['data']
     
     
@@ -84,4 +86,4 @@ all_data = {}
 #    else:
 #        all_data[k] = get_market_info(systm_current, k)['data']['tradeGoods']
 #        sleep(2)
-pprint(waypoint_symbols)
+#pprint(waypoint_symbols)
