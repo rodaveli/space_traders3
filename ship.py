@@ -18,17 +18,17 @@ def get_my_ships(n=0):
     data = res.read()
     mystr = data.decode("utf-8")
     mydict = eval(mystr)
-    return mydict['data']
+    return mydict
 
 def get_ship_location_info(n=0):
-    status = get_my_ships(n)[0]['nav']['status']
-    system_symbol = get_my_ships(n)[0]['nav']['systemSymbol']
-    waypoint_symbol = get_my_ships(n)[0]['nav']['waypointSymbol']
-    x = get_my_ships(n)[0]['nav']['route']['destination']['x']
-    y = get_my_ships(n)[0]['nav']['route']['destination']['y']
-    fuel_current = get_my_ships(n)[0]['fuel']['current']
-    fuel_capacity = get_my_ships(n)[0]['fuel']['capacity']
-    ship_symbol = get_my_ships(n)[0]['symbol']
+    status = get_my_ships(n)['data'][0]['nav']['status']
+    system_symbol = get_my_ships(n)['data'][0]['nav']['systemSymbol']
+    waypoint_symbol = get_my_ships(n)['data'][0]['nav']['waypointSymbol']
+    x = get_my_ships(n)[0]['data']['nav']['route']['destination']['x']
+    y = get_my_ships(n)[0]['data']['nav']['route']['destination']['y']
+    fuel_current = get_my_ships(n)['data'][0]['fuel']['current']
+    fuel_capacity = get_my_ships(n)['data'][0]['fuel']['capacity']
+    ship_symbol = get_my_ships(n)['data'][0]['symbol']
     return status, system_symbol, waypoint_symbol, fuel_current, fuel_capacity, ship_symbol, x, y
 
 
