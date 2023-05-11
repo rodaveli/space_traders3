@@ -18,19 +18,20 @@ def get_my_ships(n=0):
     data = res.read()
     mystr = data.decode("utf-8")
     mydict = eval(mystr)
-    return mydict
+    return mydict['data']
 
 def get_ship_location_info(n=0):
-    status = get_my_ships(n)['data'][0]['nav']['status']
-    system_symbol = get_my_ships(n)['data'][0]['nav']['systemSymbol']
-    waypoint_symbol = get_my_ships(n)['data'][0]['nav']['waypointSymbol']
-    x = get_my_ships(n)[0]['data']['nav']['route']['destination']['x']
-    y = get_my_ships(n)[0]['data']['nav']['route']['destination']['y']
-    fuel_current = get_my_ships(n)['data'][0]['fuel']['current']
-    fuel_capacity = get_my_ships(n)['data'][0]['fuel']['capacity']
-    ship_symbol = get_my_ships(n)['data'][0]['symbol']
+    status = get_my_ships(n)['nav']['status']
+    system_symbol = get_my_ships(n)['nav']['systemSymbol']
+    waypoint_symbol = get_my_ships(n)['nav']['waypointSymbol']
+    fuel_current = get_my_ships(n)['fuel']['current']
+    fuel_capacity = get_my_ships(n)['fuel']['capacity']
+    ship_symbol = get_my_ships(n)['symbol']
+    x = get_my_ships(n)['data']['nav']['route']['destination']['x']
+    y = get_my_ships(n)['data']['nav']['route']['destination']['y']
     return status, system_symbol, waypoint_symbol, fuel_current, fuel_capacity, ship_symbol, x, y
 
+pprint(get_ship_location_info())
 
 def get_ship_cargo_numbers(n):
     conn = http.client.HTTPSConnection("api.spacetraders.io")

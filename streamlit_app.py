@@ -49,7 +49,7 @@ with st.sidebar:
     st.write("headquarters:", my_info['headquarters'])
     st.write("symbol:", my_info['symbol'])
     st.write("SHIP INFO")
-    ship_info = get_ship_location_info()
+    ship_info = get_ship_location_info(0)
     #status, system_symbol, waypoint_symbol, fuel_current, fuel_capacity, ship_symbol
     st.write("status:", ship_info[0])
     sys_current = st.write("system_symbol:", ship_info[1])
@@ -57,13 +57,10 @@ with st.sidebar:
     st.write("fuel_current:", ship_info[3])
     st.write("fuel_capacity:", ship_info[4])
     ship_symbol = st.write("ship_symbol:", ship_info[5])
-    x_coord = st.write("x_coord:", ship_info[6])
-    y_coord = st.write("y_coord:", ship_info[7])
     if st.button("Dock Ship"):
         dock_ship(ship_symbol=ship_symbol)
     if st.button("Go to Orbit"):
         orbit_ship(ship_symbol=ship_symbol)
-
 
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Trade", "Nav", "Ship", "Contracts", "System Explore", "Mine for Resources"])
 
