@@ -54,6 +54,10 @@ with st.sidebar:
     st.write("status:", ship_info[0])
     sys_current = st.write("system_symbol:", ship_info[1])
     waypoint_current = st.write("waypoint_symbol:", ship_info[2])
+    x_coord = ship_info[6]
+    x_coord = ship_info[7]
+    st.write("x_coord:", ship_info[6])
+    st.write("y_coord:", ship_info[7])
     st.write("fuel_current:", ship_info[3])
     st.write("fuel_capacity:", ship_info[4])
     ship_symbol = st.write("ship_symbol:", ship_info[5])
@@ -110,9 +114,9 @@ with tab3:
         st.write(ship_inventory)
 
 with tab5:
-    ship_info = get_ship_location_info(0)
-    x_coord = st.write("x_coord:", ship_info[6])
-    y_coord = st.write("y_coord:", ship_info[7])
+    ship_info2 = get_ship_location_info(0)
+    x_coord = st.write("x_coord:", ship_info2[6])
+    y_coord = st.write("y_coord:", ship_info2[7])
     x = x_coord
     y = y_coord
     all_systems = get_systems()

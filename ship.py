@@ -4,7 +4,7 @@ from pprint import pprint
 #temp
 n = 0
 
-def get_my_ships(n=0):
+def get_my_ships(n):
     conn = http.client.HTTPSConnection("api.spacetraders.io")
 
     headers = {
@@ -18,7 +18,7 @@ def get_my_ships(n=0):
     data = res.read()
     mystr = data.decode("utf-8")
     mydict = eval(mystr)
-    return mydict['data']
+    return mydict['data'][0]
 
 def get_ship_location_info(n=0):
     status = get_my_ships(n)['nav']['status']
@@ -27,11 +27,12 @@ def get_ship_location_info(n=0):
     fuel_current = get_my_ships(n)['fuel']['current']
     fuel_capacity = get_my_ships(n)['fuel']['capacity']
     ship_symbol = get_my_ships(n)['symbol']
-    x = get_my_ships(n)['data']['nav']['route']['destination']['x']
-    y = get_my_ships(n)['data']['nav']['route']['destination']['y']
+    x = get_my_ships(n)['nav']['route']['destination']['x']
+    y = get_my_ships(n)['nav']['route']['destination']['y']
     return status, system_symbol, waypoint_symbol, fuel_current, fuel_capacity, ship_symbol, x, y
 
-pprint(get_ship_location_info())
+ship_info = get_my_ships(0)
+pprint(ship_info['nav']['route']['destination']['x'])
 
 def get_ship_cargo_numbers(n):
     conn = http.client.HTTPSConnection("api.spacetraders.io")
