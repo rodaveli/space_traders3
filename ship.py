@@ -4,7 +4,7 @@ from pprint import pprint
 #temp
 n = 0
 
-def get_my_ships(n):
+def get_my_ships(n=0):
     conn = http.client.HTTPSConnection("api.spacetraders.io")
 
     headers = {
@@ -18,17 +18,17 @@ def get_my_ships(n):
     data = res.read()
     mystr = data.decode("utf-8")
     mydict = eval(mystr)
-    return mydict['data'][0]
+    return mydict['data']
 
 def get_ship_location_info(n=0):
-    status = get_my_ships(n)['nav']['status']
-    system_symbol = get_my_ships(n)['nav']['systemSymbol']
-    waypoint_symbol = get_my_ships(n)['nav']['waypointSymbol']
-    x = get_my_ships(n)['nav']['route']['destination']['x']
-    y = get_my_ships(n)['nav']['route']['destination']['y']
-    fuel_current = get_my_ships(n)['fuel']['current']
-    fuel_capacity = get_my_ships(n)['fuel']['capacity']
-    ship_symbol = get_my_ships(n)['symbol']
+    status = get_my_ships()['nav']['status']
+    system_symbol = get_my_ships()['nav']['systemSymbol']
+    waypoint_symbol = get_my_ships()['nav']['waypointSymbol']
+    x = get_my_ships()['nav']['route']['destination']['x']
+    y = get_my_ships()['nav']['route']['destination']['y']
+    fuel_current = get_my_ships()['fuel']['current']
+    fuel_capacity = get_my_ships()['fuel']['capacity']
+    ship_symbol = get_my_ships()['symbol']
     return status, system_symbol, waypoint_symbol, fuel_current, fuel_capacity, ship_symbol, x, y
 
 
