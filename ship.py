@@ -21,14 +21,15 @@ def get_my_ships(n):
     return mydict['data'][0]
 
 def get_ship_location_info(n=0):
-    status = get_my_ships(n)['nav']['status']
-    system_symbol = get_my_ships(n)['nav']['systemSymbol']
-    waypoint_symbol = get_my_ships(n)['nav']['waypointSymbol']
-    fuel_current = get_my_ships(n)['fuel']['current']
-    fuel_capacity = get_my_ships(n)['fuel']['capacity']
-    ship_symbol = get_my_ships(n)['symbol']
-    x = get_my_ships(n)['nav']['route']['destination']['x']
-    y = get_my_ships(n)['nav']['route']['destination']['y']
+    my_ships = get_my_ships(n)
+    status = my_ships['nav']['status']
+    system_symbol = my_ships['nav']['systemSymbol']
+    waypoint_symbol = my_ships['nav']['waypointSymbol']
+    fuel_current = my_ships['fuel']['current']
+    fuel_capacity = my_ships['fuel']['capacity']
+    ship_symbol = my_ships['symbol']
+    x = my_ships['nav']['route']['destination']['x']
+    y = my_ships['nav']['route']['destination']['y']
     return status, system_symbol, waypoint_symbol, fuel_current, fuel_capacity, ship_symbol, x, y
 
 #ship_info = get_my_ships(0)
