@@ -49,7 +49,7 @@ with st.sidebar:
     st.write("headquarters:", my_info['headquarters'])
     st.write("symbol:", my_info['symbol'])
     st.write("SHIP INFO")
-    ship_info = get_ship_location_info(0)
+    ship_info = get_ship_location_info()
     #status, system_symbol, waypoint_symbol, fuel_current, fuel_capacity, ship_symbol
     st.write("status:", ship_info[0])
     sys_current = st.write("system_symbol:", ship_info[1])
