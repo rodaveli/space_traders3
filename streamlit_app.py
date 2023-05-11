@@ -113,6 +113,9 @@ with tab3:
         st.write(ship_inventory)
 
 with tab5:
+    ship_info = get_ship_location_info(0)
+    x_coord = st.write("x_coord:", ship_info[6])
+    y_coord = st.write("y_coord:", ship_info[7])
     x = x_coord
     y = y_coord
     all_systems = get_systems()
